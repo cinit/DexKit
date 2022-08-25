@@ -32,7 +32,7 @@ static_assert(sizeof(ins_formats) / sizeof(dex::InstructionFormat) == 256);
 constexpr std::string_view GetOpcodeFormat(uint8_t opcode) {
     switch (ins_formats[opcode]) {
 #define EMIT_INSTRUCTION_FORMAT_NAME(name) \
-    case dex::k##name:                          \
+    case dex::name:                          \
         return  #name;
 #include "slicer/dex_instruction_list.h"
         DEX_INSTRUCTION_FORMAT_LIST(EMIT_INSTRUCTION_FORMAT_NAME)
@@ -40,6 +40,7 @@ constexpr std::string_view GetOpcodeFormat(uint8_t opcode) {
 #undef DEX_INSTRUCTION_FORMAT_LIST
 #undef DEX_INSTRUCTION_LIST
     }
+    return "unknown";
 }
 
 constexpr uint8_t GetOpcodeLen(dex::u1 opcode) {
